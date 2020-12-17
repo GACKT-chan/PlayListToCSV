@@ -31,6 +31,8 @@ items = input().split(" ")
 if items[0] == '':
     items = ['トラックタイトル', 'アーティスト', 'コメント']
 for l in selements:
+    if l == [""]:
+        break
     line += l[0]+','
     print(l[0], end = '\t')
     for j in items:
@@ -43,5 +45,6 @@ for l in selements:
     line = line.replace(',','',1)
     line = line[::-1]
     line += '\n'
-with open(makeName,'w') as f:
-    f.write(line)
+b = line.encode('cp932', 'ignore')
+with open(makeName,'wb') as f:
+    f.write(b)
