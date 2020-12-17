@@ -1,12 +1,10 @@
-#!/usr/local/bin/python3
-# coding: utf-8
 import re
 
 print("inputFileName OutputFileName")
 inName,makeName = input().split(" ")
-inp = re.search(r'.*'+'.txt',makeName)
+inp = re.search(r'.*'+'.txt',inName)
 if inp == None:
-    makeName += '.csv'
+    inName += '.txt'
 out = re.search(r'.*'+'.csv',makeName)
 if out == None:
     makeName += '.csv'
@@ -19,24 +17,30 @@ selements = []
 for l in slines:
     ll = str(l).split('\t')
     selements.append(ll)
-print("使いたい項目を選択")
-print("例:BPM　アーティスト　トラックタイトル")
+print("使いたい項目を選択(何も選択しない場合トラックタイトル,アーティスト,コメントになります)")
+print("入力例:コメント アーティスト トラックタイトル")
 eld = {}
 for l in range(1,len(selements[0])):
-    print(selements[0][l], end = '\t')
+    print('[' + selements[0][l], end = ']')
     eld.setdefault(selements[0][l], l)
 print()
 line = ""
 items = input().split(" ")
+
+if items[0] == '':
+    items = ['トラックタイトル', 'アーティスト', 'コメント']
 for l in selements:
     line += l[0]+','
+    print(l[0], end = '\t')
     for j in items:
-        i = int(eld.get(str(j)))
+        i = int(eld.get(j))
         l[i] = l[i].replace(',','_')
         line += l[i]+','
+        print(l[i], end = '\t')
+    print()
+    line = line[::-1]
+    line = line.replace(',','',1)
+    line = line[::-1]
     line += '\n'
-
-print(line)
-
 with open(makeName,'w') as f:
     f.write(line)
