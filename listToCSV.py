@@ -18,7 +18,6 @@ for l in slines:
     ll = str(l).split('\t')
     selements.append(ll)
 print("使いたい項目を選択(何も選択しない場合トラックタイトル,アーティスト,コメントになります)")
-print("入力例:コメント アーティスト トラックタイトル")
 eld = {}
 for l in range(1,len(selements[0])):
     print('[' + selements[0][l], end = ']')
