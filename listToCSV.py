@@ -1,7 +1,15 @@
 #!/usr/local/bin/python3
 # coding: utf-8
+import re
+
 print("inputFileName OutputFileName")
 inName,makeName = input().split(" ")
+inp = re.search(r'.*'+'.txt',makeName)
+if inp == None:
+    makeName += '.csv'
+out = re.search(r'.*'+'.csv',makeName)
+if out == None:
+    makeName += '.csv'
 with open(inName,'r',encoding="utf-16-le") as f:
     s = f.read()
 s = s.replace(u'\ufeff','')
