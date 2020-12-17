@@ -18,7 +18,6 @@ for l in range(1,len(selements[0])):
     print(selements[0][l], end = '\t')
     eld.setdefault(selements[0][l], l)
 print()
-print(eld)
 line = ""
 items = input().split(" ")
 for l in selements:
