@@ -12,11 +12,11 @@ if out == None:
     makeName += '.csv'
 with open(inName,'r',encoding="utf-16-le") as f:
     s = f.read()
-s = s.replace(u'\ufeff','')
+s = s.replace(u'\ufeff','').replace(',','_')
 slines = s.split('\n')
 slines = [l.replace('\n','') for l in slines]
 selements = []
-for l in slines:
+for l in slines[:-1]:
     ll = str(l).split('\t')
     selements.append(ll)
 print("使いたい項目を選択(何も選択しない場合トラックタイトル,アーティスト,コメントになります)")
@@ -30,21 +30,10 @@ line = ""
 items = input().split(" ")
 if items[0] == '':
     items = ['トラックタイトル', 'アーティスト', 'コメント']
-for l in selements:
-    if l == [""]:
-        break
-    line += l[0]+','
-    print(l[0], end = '\t')
-    for j in items:
-        i = int(eld.get(j))
-        l[i] = l[i].replace(',','_')
-        line += l[i]+','
-        print(l[i], end = '\t')
-    print()
-    line = line[::-1]
-    line = line.replace(',','',1)
-    line = line[::-1]
-    line += '\n'
-b = line.encode('cp932', 'ignore')
-with open(makeName,'wb') as f:
-    f.write(b)
+with open(makeName,'w') as f:
+    for l in selements:
+        output = ''
+        for it in items:
+            output += l[int(eld.get(it))]+','
+        output += '\n'
+        f.writelines(output)
